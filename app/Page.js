@@ -1,12 +1,8 @@
 export default function Home() {
   return (
-    <div style={{ padding: 40, fontFamily: "Arial" }}>
-      <h1>EuTech School System1</h1>
-      <p>The operating system for modern schools.</p>
-
-      <button style={{ padding: 10, marginTop: 20 }}>
-        Request Demo
-      </button>
+    <div style={{ padding: 40 }}>
+      <h1>EuTech School System Updated</h1>
+      <p>Deployment refresh test</p>
     </div>
   );
 }
