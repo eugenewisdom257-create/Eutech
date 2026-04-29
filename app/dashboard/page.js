@@ -1,13 +1,35 @@
-export default function Dashboard(){
- return (
-   <div style={{padding:40}}>
-      <h1>Admin Dashboard</h1>
-      <ul>
-        <li>Students</li>
-        <li>Fees</li>
-        <li>Documents</li>
-        <li>Messages</li>
-      </ul>
-   </div>
- );
+"use client";
+
+import { useEffect, useState } from "react";
+import { supabase } from "../lib/supabase";
+import { useRouter } from "next/navigation";
+
+export default function Dashboard() {
+  const router = useRouter();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function checkUser() {
+      const { data } = await supabase.auth.getUser();
+
+      if (!data.user) {
+        router.push("/login");
+      } else {
+        setLoading(false);
+      }
+    }
+
+    checkUser();
+  }, []);
+
+  if (loading) {
+    return <p>Loading dashboard...</p>;
+  }
+
+  return (
+    <div style={{ padding: 40 }}>
+      <h1>Dashboard</h1>
+      <p>Welcome to your school system.</p>
+    </div>
+  );
 }
