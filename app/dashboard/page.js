@@ -4,7 +4,10 @@ import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 import { useRouter } from "next/navigation";
 
-export default function Dashboard() {
+export default function Dashboard() {async function logout() {
+  await supabase.auth.signOut();
+  router.push("/login");
+}
   const router = useRouter();
   const [loading, setLoading] = useState(true);
 
