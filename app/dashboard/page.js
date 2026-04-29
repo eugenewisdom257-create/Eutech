@@ -31,7 +31,9 @@ export default function Dashboard() {async function logout() {
 
   return (
     <div style={{ padding: 40 }}>
-      <h1>Dashboard</h1>
+      <h1>Dashboard</h1><button onClick={logout}>
+  Logout
+</button>
       <p>Welcome to your school system.</p>
     </div>
   );
