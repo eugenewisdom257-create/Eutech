@@ -4,37 +4,48 @@ import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 import { useRouter } from "next/navigation";
 
-export default function Dashboard() {async function logout() {
-  await supabase.auth.signOut();
-  router.push("/login");
-}
+export default function Dashboard() {
   const router = useRouter();
-  const [loading, setLoading] = useState(true);
+  const [students, setStudents] = useState([]);
 
   useEffect(() => {
-    async function checkUser() {
-      const { data } = await supabase.auth.getUser();
+    async function fetchStudents() {
+      const { data, error } = await supabase
+        .from("students")
+        .select("*");
 
-      if (!data.user) {
-        router.push("/login");
+      if (error) {
+        console.log("Error:", error);
       } else {
-        setLoading(false);
+        setStudents(data);
       }
     }
 
-    checkUser();
+    fetchStudents();
   }, []);
 
-  if (loading) {
-    return <p>Loading dashboard...</p>;
+  async function logout() {
+    await supabase.auth.signOut();
+    router.push("/login");
   }
 
   return (
     <div style={{ padding: 40 }}>
-      <h1>Dashboard</h1><button onClick={logout}>
-  Logout
-</button>
-      <p>Welcome to your school system.</p>
+      <h1>Students</h1>
+
+      {students.length === 0 ? (
+        <p>No students found</p>
+      ) : (
+        students.map((s) => (
+          <div key={s.id}>
+            <p>{s.full_name} - {s.class}</p>
+          </div>
+        ))
+      )}
+
+      <button onClick={logout} style={{ marginTop: 20 }}>
+        Logout
+      </button>
     </div>
   );
 }
