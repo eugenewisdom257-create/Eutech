@@ -78,11 +78,18 @@ export default function Dashboard() {
       {students.length === 0 ? (
         <p>No students found</p>
       ) : (
-        students.map((s) => (
-          <div key={s.id}>
-            {s.full_name} - {s.class}
-          </div>
-        ))
+       students.map((s) => (
+  <div key={s.id} style={{ marginBottom: 10 }}>
+    {s.full_name} - {s.class}
+
+    <button
+      onClick={() => deleteStudent(s.id)}
+      style={{ marginLeft: 10 }}
+    >
+      Delete
+    </button>
+  </div>
+)) 
       )}
 
       <button onClick={logout} style={{ marginTop: 20 }}>
