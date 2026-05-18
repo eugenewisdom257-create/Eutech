@@ -1,0 +1,45 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { supabase } from "../lib/supabase";
+
+export default function StudentsPage() {
+  const [students, setStudents] = useState([]);
+
+  useEffect(() => {
+    fetchStudents();
+  }, []);
+
+  async function fetchStudents() {
+    const { data } = await supabase
+      .from("students")
+      .select("*");
+
+    setStudents(data || []);
+  }
+
+  return (
+    <div style={{ padding: 30 }}>
+      <h1>Students Page</h1>
+
+      {students.length === 0 ? (
+        <p>No students found</p>
+      ) : (
+        students.map((s) => (
+          <div
+            key={s.id}
+            style={{
+              background: "#f3f4f6",
+              padding: 15,
+              marginBottom: 10,
+              borderRadius: 8,
+            }}
+          >
+            <strong>{s.full_name}</strong>
+            <p>{s.class}</p>
+          </div>
+        ))
+      )}
+    </div>
+  );
+}
