@@ -67,7 +67,9 @@ export default function Dashboard() {
         <h2>EduTech</h2>
 
         <p style={{ marginTop: 30 }}>Dashboard</p>
-        <p>Students</p>
+        <a href="/students" style={{ color: "white" }}>
+  Students
+</a>
         <p>Teachers</p>
         <p>Finance</p>
 
